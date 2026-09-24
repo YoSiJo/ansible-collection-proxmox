@@ -49,4 +49,4 @@ Environment="PBS_FINGERPRINT={{ pbs_client_fingerprint }}"
 {% set ns = "--ns " +(pbs_client_ns|quote) %}
 {% endif -%}
 
-ExecStart=/usr/bin/proxmox-backup-client backup {{ pbs_client_backup_archives | map('quote') | join(" ") }} {{ mounts }} {{ backup_id|d("") }} {{ change_detection_mode|d("") }} {{ pbs_client_ns|d("") }}
+ExecStart=/usr/bin/proxmox-backup-client backup {{ pbs_client_backup_archives | map('quote') | join(" ") }} {{ mounts }} {{ backup_id|d("") }} {{ change_detection_mode|d("") }} {{ ns|d("") }}
