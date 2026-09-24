@@ -62,6 +62,16 @@ Additionally, a backup job can be configured and scheduled.
 - If undefined, the PBS default (hostname) is used
 - Default: not defined
 
+#### `pbs_client_detection`
+- Change Detection Mode can work with blocks or meta data using (see (here)[https://pbs.proxmox.com/docs/backup-client.html#change-detection-mode])
+- If undefined, the `legacy` is using.
+- Default: not defined
+
+#### `pbs_client_ns`
+- Namespace on Server (see (here)[https://pbs.proxmox.com/docs/terminology.html#backup-namespace])
+- If undefined, `/` is used
+- Default: not defined
+
 ### Encryption
 
 ---

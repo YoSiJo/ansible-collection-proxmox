@@ -27,7 +27,7 @@ Environment="PBS_PASSWORD={{ pbs_client_password }}"
 Environment="PBS_FINGERPRINT={{ pbs_client_fingerprint }}"
 {% endif %}
 
-{% if pbs_client_include_mountpoints == "all" %}
+{%- if pbs_client_include_mountpoints == "all" %}
 {%   set mounts = "--all-file-systems" %}
 {% else %}
 {%   set mounts = [] %}
@@ -35,10 +35,18 @@ Environment="PBS_FINGERPRINT={{ pbs_client_fingerprint }}"
 {%     set _ = mounts.append("--include-dev " + (m | quote)) %}
 {%   endfor %}
 {%   set mounts = mounts | join(" ") %}
-{% endif %}
+{% endif -%}
 
-{% if pbs_client_backup_id is defined %}
+{%- if pbs_client_backup_id is defined %}
 {% set backup_id = "--backup-id " +(pbs_client_backup_id|quote) %}
-{% endif %}
+{% endif -%}
 
-ExecStart=/usr/bin/proxmox-backup-client backup {{ pbs_client_backup_archives | map('quote') | join(" ") }} {{ mounts }} {{ backup_id|d("") }}
+{%- if pbs_client_detection is defined %}
+{% set change_detection_mode = "--change-detection-mode " +(pbs_client_detection|quote) %}
+{% endif -%}
+
+{%- if pbs_client_ns is defined %}
+{% set ns = "--ns " +(pbs_client_ns|quote) %}
+{% endif -%}
+
+ExecStart=/usr/bin/proxmox-backup-client backup {{ pbs_client_backup_archives | map('quote') | join(" ") }} {{ mounts }} {{ backup_id|d("") }} {{ change_detection_mode|d("") }} {{ pbs_client_ns|d("") }}

@@ -8,6 +8,8 @@ pbs_client_skip_install: false
 
 pbs_client_include_mountpoints: []
 #pbs_client_backup_id:
+#pbs_client_detection:
+#pbs_client_ns:
 
 pbs_client_encryption_mode: none
 #pbs_client_encryption_pubkey:
